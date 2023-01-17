@@ -5,33 +5,38 @@ st.title("Calculator")
 st.write("This is a simple calculator app")
 
 ans = 0
+st.session_state["display"] = st.session_state.get("display", "")
+
 
 def show_display(display):
     """displays the input"""
     st.success(display)
 
-def calculate(display):
+
+def calculate():
     """sends the input to sympy for evaluation"""
     global ans
     try:
-        ans = sp.sympify(display)
+        ans = sp.sympify(st.session_state["display"])
         ans = sp.simplify(ans)
         st.success(f"Answer = {ans}")
     except Exception as e:
         st.write("Error: ", e)
 
 
-main, sidebutton= st.columns(2)
+main, sidebutton = st.columns(2)
 with main:
-    display = st.text_input("Enter your expression", value="0", key="display")
+    st.text_input("Enter your expression",
+                  value=st.session_state.get('display', ""), key="display_t")
+
 with sidebutton:
-    #create a space
+    # create a space
     st.write("")
     st.write("")
     Calculate = st.button("Calculate")
 
 if Calculate:
-    calculate(display)
+    calculate()
 
 left, middle, right, operators, *_ = st.columns(13)
 with left:
@@ -59,40 +64,55 @@ with operators:
     button_divide = st.button("/")
 
 if button1:
-    display = display + "1"
-# create the rest of the button actions
+    st.session_state.display = st.session_state.display + "1"
+    show_display(st.session_state.display)
+    st.experimental_rerun()
+    # create the rest of the button actions
 if button2:
-    display = display + "2"
+    st.session_state.display = st.session_state.display + "2"
+    show_display(st.session_state.display)
+    st.experimental_rerun()
 if button3:
-    display = display + "3"
+    st.session_state.display = st.session_state.get('display', '') + "3"
+    show_display(st.session_state.display)
+    st.experimental_rerun()
 if button4:
-    display = display + "4"
+    st.session_state.display = st.session_state.get('display', '') + "4"
+    show_display(st.session_state.display)
+    st.experimental_rerun()
 if button5:
-    display = display + "5"
+    st.session_state.display = st.session_state.get('display', '') + "5"
+    show_display(st.session_state.display)
+    st.experimental_rerun()
 if button6:
-    display = display + "6"
+    st.session_state.display = st.session_state.get('display', '') + "6"
+    st.experimental_rerun()
 if button7:
-    display = display + "7"
+    st.session_state.display = st.session_state.get('display', '') + "7"
+    st.experimental_rerun()
 if button8:
-    display = display + "8"
+    st.session_state.display = st.session_state.get('display', '') + "8"
+    st.experimental_rerun()
 if button9:
-    display = display + "9"
+    st.session_state.display = st.session_state.get('display', '') + "9"
+    st.experimental_rerun()
 if button0:
-    display = display + "0"
+    st.session_state.display = st.session_state.get('display', '') + "0"
+    st.experimental_rerun()
 if buttonc:
-    display = "0"
+    st.session_state.display = ""
 if button_plus:
-    display = display + "+"
+    st.session_state.display = st.session_state.get('display', '') + "+"
+    st.experimental_rerun()
 if button_minus:
-    display = display + "-"
+    st.session_state.display = st.session_state.get('display', '') + "-"
+    st.experimental_rerun()
 if button_multiply:
-    display = display + "*"
+    st.session_state.display = st.session_state.get('display', '') + "*"
+    st.experimental_rerun()
 if button_divide:
-    display = display + "/"
-    st.session_state['display']= display
-    show_display(display)
-
+    st.session_state.display = st.session_state.get('display', '') + "/"
+    st.experimental_rerun()
 
 if equals:
-    calculate(display)
-
+    calculate()
