@@ -27,7 +27,7 @@ def calculate():
 main, sidebutton = st.columns(2)
 with main:
     st.text_input("Enter your expression",
-                  value=st.session_state.get('display', ""), key="display_t")
+                  value=st.session_state.get('display', ""), key="input_text")
 
 with sidebutton:
     # create a space
@@ -101,6 +101,7 @@ if button0:
     st.experimental_rerun()
 if buttonc:
     st.session_state.display = ""
+    st.experimental_rerun()
 if button_plus:
     st.session_state.display = st.session_state.get('display', '') + "+"
     st.experimental_rerun()
@@ -113,6 +114,7 @@ if button_multiply:
 if button_divide:
     st.session_state.display = st.session_state.get('display', '') + "/"
     st.experimental_rerun()
+
 
 if equals:
     calculate()
